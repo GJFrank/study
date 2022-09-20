@@ -1,0 +1,4 @@
+com\atguigu\srb\rabbitmq\service\impl\MQServiceImpl.class
+com\atguigu\srb\rabbitmq\service\MQService.class
+com\atguigu\srb\rabbitmq\config\MQConfig.class
+com\atguigu\srb\rabbitmq\constant\MQConst.class

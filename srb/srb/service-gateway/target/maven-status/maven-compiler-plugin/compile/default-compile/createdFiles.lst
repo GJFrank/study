@@ -1,0 +1,3 @@
+com\atguigu\srb\gateway\config\CorsConfig.class
+com\atguigu\srb\gateway\filters\MyAuthFilter.class
+com\atguigu\srb\gateway\ServiceGatewayApplication.class

@@ -1,0 +1,7 @@
+com\atguigu\srb\oss\controller\FileController.class
+com\atguigu\srb\oss\service\impl\FileServiceImpl.class
+com\atguigu\srb\oss\config\OssProperties.class
+com\atguigu\srb\oss\config\Swagger2Config.class
+META-INF\spring-configuration-metadata.json
+com\atguigu\srb\oss\ServiceOssApplication.class
+com\atguigu\srb\oss\service\FileService.class

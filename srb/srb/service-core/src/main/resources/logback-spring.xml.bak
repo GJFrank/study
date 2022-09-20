@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration> <!--日志配置的根节点-->
+    <contextName>atguiguSrb</contextName> <!--每个logger都关联到logger上下文,默认上下文名称为"default" 可以使用<contextName>设置成其它名字-->
+    <property name="log.path" value="F:/JavaStudy/workspace/srb_log/core"/><!--定义变量用-->
+    <!--通过<property>定义的值会被插入到logger上下文汇总.  定义变量后 可以使用"${}}"来使用变量-->
+
+    <!--控制台日志格式: 彩色日志-->
+    <!--magenta-->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%yellow(%date{yyyy-MM-dd HH:mm:ss}) %highlight([%-5level]) %green(%logger) %msg%n"/>
+
+    <!--文件日志格式-->
+    <property name="FILE_LOG_PATTERN"
+              value="%date{yyyy-MM-dd HH:mm:ss} [%-5level] %thread %file:%line %logger %msg%n"/>
+
+    <!--编码-->
+    <property name="ENCODING"
+              value="UTF-8"/>
+
+    <!-- 控制台日志对象 -->
+    <!--appender 负责写日志的组件  name: appender 的名称  class: appender的全限定名-->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder> <!--对日志进行格式化-->
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>   <!--定义日志的具体输出格式-->
+            <charset>${ENCODING}</charset>              <!--编码方式-->
+        </encoder>
+    </appender>
+
+    <!--文件日志配置-->
+    <!--file 表示日志文件的位置, 如果上级目录不存在将会自动创建, 没有默认值-->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${log.path}/log.log</file>
+        <append>true</append>  <!--默认true 日志会被追加到文件结尾, 如果是false 服务重启后 清空现存文件-->
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>${ENCODING}</charset>
+        </encoder>
+    </appender>
+
+    <!--滚动日志-->
+    <!--RollingFileAppender  表示滚动记录文件, 先将日志记录到指定文件, 当符合某个条件,将旧日志备份到其它文件-->
+    <appender name="ROLLINGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--<file>${log.path}/log_rolling.log</file> &lt;!&ndash;为了和其它日志区分来&ndash;&gt;-->
+        <append>true</append>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>${ENCODING}</charset>
+        </encoder>
+        <!--设置滚动日志记录的滚动策略-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志归档路径以及各式-->
+            <fileNamePattern>${log.path}/info/log-rolling-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>1KB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+   <!-- &lt;!&ndash; 滚动文件日志对象 &ndash;&gt;
+    <appender name="ROLLINGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>${ENCODING}</charset>
+        </encoder>
+        &lt;!&ndash; 设置滚动日志记录的滚动策略 &ndash;&gt;
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            &lt;!&ndash; 日志归档路径以及格式 &ndash;&gt;
+            <fileNamePattern>${log.path}/info/log-rolling-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>1KB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>-->
+
+
+
+    <!-- 日志打印器 -->
+    <logger name="com.atguigu" level="DEBUG">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="ROLLINGFILE"/>
+    </logger>
+</configuration>
